@@ -9,6 +9,13 @@ describe PagesController do
         get action
         response.should be_success
       end
+      
+      it "should have the correct title" do
+        get action
+        response.should have_selector("title",
+          :content => "Sample App :: #{action}"
+        )
+      end
     end
   end
   
