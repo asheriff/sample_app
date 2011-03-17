@@ -1,0 +1,73 @@
+$COLOR_MAIN: #2B2017
+$COLOR_MAIN_LIGHT: #784F2B
+$COLOR_ACCENT: #0E626E
+$COLOR_ACCENT_LIGHT: #BFE88C
+$COLOR_SECONDARY: #332136
+
+=round($radius:.4em)
+  :-moz-border-radius $radius
+  :-webkit-border-radius $radius
+  :border-radius $radius
+
+*
+  :box-sizing border-box
+  :-moz-box-sizing border-box
+
+BODY
+  :font-size 80%
+  :font-family Helvetica, Arial
+  :color #333
+  :background $COLOR_MAIN
+
+A
+  :color $COLOR_ACCENT
+  &:HOVER
+    :color $COLOR_SECONDARY
+
+IMG
+  :border none
+
+.container
+  :background #FFF
+  :width 510px
+  :margin 0 auto
+  :padding 1em
+  +round(1em)
+
+SECTION
+  :display block
+  
+NAV
+  :float right
+  :display inline-block
+  :background $COLOR_ACCENT_LIGHT
+  UL
+    :padding .2em 1em
+    :margin 0
+    LI
+      :list-style none
+      :display inline-block
+      :margin 0 .4em
+      A
+        :font-size .9em
+        :font-weight bold
+        :text-decoration none
+
+.round
+  +round
+
+.centered
+  :text-align center
+  
+.button_call_to_action
+  :display inline-block
+  :margin 0 auto
+  :padding .2em 1em
+  :background $COLOR_ACCENT
+  :font-size 1.3em
+  :font-weight bold
+  :color #FFF
+  :text-decoration none
+  &:HOVER
+    :background $COLOR_ACCENT_LIGHT
+    :color $COLOR_ACCENT

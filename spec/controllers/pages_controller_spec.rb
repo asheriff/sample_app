@@ -13,7 +13,7 @@ describe PagesController do
       it "should have the correct title" do
         get action
         response.should have_selector("title",
-          :content => "My Silly Rials App :: #{action}"
+          :content => "My Silly Rials App :: #{action.capitalize}"
         )
       end
     end

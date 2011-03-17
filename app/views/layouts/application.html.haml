@@ -9,6 +9,15 @@
     
     = csrf_meta_tag
   %body
-    = yield
-    %section
-      This is a section
+    .container
+      %header
+        = link_to '#', :class=>"logo round" do
+          = image_tag "logo.png", :alt=>"Rails Sample App"
+        %nav.round
+          %ul
+            %li #{link_to "Home", "#"}
+            %li #{link_to "Help", "#"}
+            %li #{link_to "Sign In", "#"}
+      %section.round
+        %h1 #{@title}
+        = yield
