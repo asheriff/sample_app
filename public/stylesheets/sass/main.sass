@@ -28,19 +28,15 @@ IMG
   :border none
 
 .container
-  :background #FFF
   :width 510px
   :margin 0 auto
   :padding 1em
-  +round(1em)
 
-SECTION
-  :display block
-  
 NAV
-  :float right
-  :display inline-block
   :background $COLOR_ACCENT_LIGHT
+  HEADER &
+    :float right
+    :display inline-block
   UL
     :padding .2em 1em
     :margin 0
@@ -48,10 +44,31 @@ NAV
       :list-style none
       :display inline-block
       :margin 0 .4em
-      A
-        :font-size .9em
-        :font-weight bold
-        :text-decoration none
+  A
+    :font-size .9em
+    :font-weight bold
+    :text-decoration none
+
+HEADER
+  :background #FFF
+  :display block
+  :padding 1em
+  +round(10px)
+
+SECTION
+  :display block
+  :padding 1em
+  :margin 1em 0
+  :background #FFF
+  +round(10px)
+
+FOOTER
+  :display block
+  :background #FFF
+  +round(10px)
+  :text-align center
+  A
+    :font-size .8em
 
 .round
   +round

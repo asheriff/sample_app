@@ -17,21 +17,15 @@ IMG {
   border: none; }
 
 .container {
-  background: white;
   width: 510px;
   margin: 0 auto;
-  padding: 1em;
-  -moz-border-radius: 1em;
-  -webkit-border-radius: 1em;
-  border-radius: 1em; }
-
-SECTION {
-  display: block; }
+  padding: 1em; }
 
 NAV {
-  float: right;
-  display: inline-block;
   background: #bfe88c; }
+  HEADER NAV {
+    float: right;
+    display: inline-block; }
   NAV UL {
     padding: 0.2em 1em;
     margin: 0; }
@@ -39,10 +33,37 @@ NAV {
       list-style: none;
       display: inline-block;
       margin: 0 0.4em; }
-      NAV UL LI A {
-        font-size: 0.9em;
-        font-weight: bold;
-        text-decoration: none; }
+  NAV A {
+    font-size: 0.9em;
+    font-weight: bold;
+    text-decoration: none; }
+
+HEADER {
+  background: white;
+  display: block;
+  padding: 1em;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px; }
+
+SECTION {
+  display: block;
+  padding: 1em;
+  margin: 1em 0;
+  background: white;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px; }
+
+FOOTER {
+  display: block;
+  background: white;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  text-align: center; }
+  FOOTER A {
+    font-size: 0.8em; }
 
 .round {
   -moz-border-radius: 0.4em;

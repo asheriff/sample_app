@@ -1,8 +1,8 @@
 !!!
 %html
   %head
-    %title #{title} 
-    = stylesheet_link_tag "main"
+    %title #{title}
+    = render "layouts/stylesheets"
     
     /[if lt IE 9]
       = javascript_include_tag "vendor/html5"
@@ -10,14 +10,8 @@
     = csrf_meta_tag
   %body
     .container
-      %header
-        = link_to '#', :class=>"logo round" do
-          = image_tag "logo.png", :alt=>"Rails Sample App"
-        %nav.round
-          %ul
-            %li #{link_to "Home", "#"}
-            %li #{link_to "Help", "#"}
-            %li #{link_to "Sign In", "#"}
-      %section.round
+      = render "layouts/header"
+      %section
         %h1 #{@title}
         = yield
+      = render "layouts/footer"
