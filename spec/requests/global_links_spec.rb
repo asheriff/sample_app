@@ -23,4 +23,11 @@ describe "GlobalLinks" do
       :content => "#{@base_title} :: Home"
     )
   end
+  
+  it "should have a Sign Up page at /signup" do
+    get "/signup"
+    response.should have_selector("title",
+      :content => "#{@base_title} :: Sign Up"
+    )
+  end
 end
