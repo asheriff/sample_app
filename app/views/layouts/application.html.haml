@@ -15,3 +15,7 @@
         %h1 #{@title}
         = yield
       = render "layouts/footer"
+    - if Rails.env.development?
+      %section.debug
+        = debug(params)
+        

@@ -8,6 +8,10 @@ BODY {
   color: #333333;
   background: #2b2017; }
 
+PRE, CODE {
+  font-family: "Courier New", monospace;
+  font-size: 1em; }
+
 A {
   color: #0e626e; }
   A:HOVER {
