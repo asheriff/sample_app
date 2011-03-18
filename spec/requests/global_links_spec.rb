@@ -18,9 +18,9 @@ describe "GlobalLinks" do
   end
   
   it "should have a Home page at /" do
-      get "/"
-      response.should have_selector("title",
-        :content => "#{@base_title} :: Home"
-      )
+    get "/"
+    response.should have_selector("title",
+      :content => "#{@base_title} :: Home"
+    )
   end
 end
