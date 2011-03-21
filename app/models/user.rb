@@ -28,4 +28,16 @@ class User < ActiveRecord::Base
     :confirmation => true,
     :length => { :within=>6..40 }
   
+  before_save :encrypt_password
+  
+  private
+  
+    def encrypt_password
+      self.encrypted_password = encrypt(password)
+    end
+    
+    def encrypt(s)
+      # TODO: implement encryption
+      s 
+    end
 end
