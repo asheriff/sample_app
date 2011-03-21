@@ -34,13 +34,22 @@ class User < ActiveRecord::Base
   
   before_save :encrypt_password
   
+  # Returns the user if +email+ and +password are correct.
+  #
+  def self.authenticate(email, password)
+    return nil unless user = find_by_email(email)
+    return nil unless user.has_password?(password)
+    user
+  end
+  
   # Returns true if +password+ matches user password.
+  #
   def has_password?(password)
     encrypted_password == encrypt(password)
   end
   
   private
-  
+    
     def encrypt_password
       self.salt = make_salt if new_record?
       self.encrypted_password = encrypt(password)
