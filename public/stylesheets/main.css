@@ -89,3 +89,8 @@ FOOTER {
   .button_call_to_action:HOVER {
     background: #bfe88c;
     color: #0e626e; }
+
+.gravatar {
+  float: right;
+  position: relative;
+  top: -5em; }

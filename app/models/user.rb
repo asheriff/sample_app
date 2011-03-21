@@ -48,6 +48,10 @@ class User < ActiveRecord::Base
     encrypted_password == encrypt(password)
   end
   
+  def email_md5
+    Digest::MD5.hexdigest(email)
+  end
+  
   private
     
     def encrypt_password
