@@ -25,6 +25,9 @@ IMG {
   margin: 0 auto;
   padding: 1em; }
 
+TH {
+  text-align: left; }
+
 NAV {
   background: #bfe88c; }
   HEADER NAV {
@@ -89,6 +92,10 @@ FOOTER {
   .button_call_to_action:HOVER {
     background: #bfe88c;
     color: #0e626e; }
+
+.profile {
+  border: 1px solid #bfe88c;
+  background: #eef9e1; }
 
 .gravatar {
   float: right;
