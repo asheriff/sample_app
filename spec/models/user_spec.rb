@@ -2,7 +2,12 @@ require 'spec_helper'
 
 describe User do
   before :each do
-    @attrs = { :name=>"Jon Doe", :email=>"jdoe@foo.com" }
+    @attrs = {
+      :name => "Jon Doe",
+      :email => "jdoe@foo.com",
+      :password => "foobar",
+      :password_confirmation => "foobar"
+    }
   end
   
   it "should create new users given valid data" do
@@ -37,5 +42,29 @@ describe User do
     User.create! @attrs
     user2 = User.new @attrs.merge(:email=>@attrs[:email].upcase)
     user2.valid?.should eq false
+  end
+  
+  describe "password validations" do
+    it "should require a password" do
+      user = User.new( @attrs.merge(:password=>"", :password_confirmation=>"") )
+      user.valid?.should eq false
+    end
+    
+    it "should require a matching password confirmation" do
+      user = User.new( @attrs.merge(:password=>"foobar", :password_confirmation=>"barfoo") )
+      user.valid?.should eq false
+    end
+    
+    it "should reject short passwords" do
+      pass = "a"*5
+      user = User.new( @attrs.merge(:password=>pass, :password_confirmation=>pass) )
+      user.valid?.should eq false
+    end
+    
+    it "should reject long passwords" do
+      pass = "a"*41
+      user = User.new( @attrs.merge(:password=>pass, :password_confirmation=>pass) )
+      user.valid?.should eq false
+    end
   end
 end
