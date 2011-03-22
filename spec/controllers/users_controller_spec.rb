@@ -99,6 +99,11 @@ describe UsersController do
         post "create", :user=>@attrs
         response.should redirect_to(user_path(assigns(:user)))
       end
+      
+      it "should have a welcome message" do
+        post "create", :user=>@attrs
+        flash[:success].should =~ /welcome/i
+      end
     end
   end
 end
