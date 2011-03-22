@@ -8,6 +8,9 @@ BODY {
   color: #333333;
   background: #2b2017; }
 
+H2 {
+  font-size: 1.2em; }
+
 PRE, CODE {
   font-family: "Courier New", monospace;
   font-size: 1em; }
@@ -19,6 +22,10 @@ A {
 
 IMG {
   border: none; }
+
+UL, OL {
+  padding-left: 1em;
+  margin-left: 1em; }
 
 .container {
   width: 510px;
@@ -71,6 +78,28 @@ FOOTER {
   text-align: center; }
   FOOTER A {
     font-size: 0.8em; }
+
+.form DT {
+  margin: 0.5em 0 0;
+  font-weight: bold; }
+.form DD {
+  margin: 0.5em 0 0.5em 0; }
+.form .actions {
+  margin: 1em 0; }
+.form .field_with_errors {
+  color: red; }
+  .form .field_with_errors INPUT {
+    border-color: red; }
+
+.form_errors {
+  padding: 1em;
+  border: 1px solid red;
+  -moz-border-radius: 0.4em;
+  -webkit-border-radius: 0.4em;
+  border-radius: 0.4em;
+  background: #ffcccc; }
+  .form_errors H2 {
+    margin: 0; }
 
 .round {
   -moz-border-radius: 0.4em;
