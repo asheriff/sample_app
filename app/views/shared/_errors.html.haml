@@ -1,7 +1,7 @@
-- unless @user.errors.empty?
+- unless obj.errors.empty?
   .form_errors
-    %h2 There are #{pluralize(@user.errors.count, "problem")} with your submission
+    %h2 There are #{pluralize(obj.errors.count, "problem")} with your submission
     %p Please fix the following issues:
     %ul
-      - @user.errors.full_messages.each do |message|
+      - obj.errors.full_messages.each do |message|
         %li= message

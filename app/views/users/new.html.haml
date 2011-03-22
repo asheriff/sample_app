@@ -1,7 +1,7 @@
 - @title = "Sign Up"
 
 = form_for(@user) do |f|
-  = render 'shared/errors'
+  = render :partial=>'shared/errors', :locals=>{ :obj=>@user }
   %dl.form
     %dt= f.label( :name )
     %dd= f.text_field( :name )
