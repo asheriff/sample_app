@@ -1,4 +1,10 @@
-- @title = "Sign Up"
+- @title = "#{@user.name} :: Edit"
+
+.update_gravatar.gravatar
+  %a{ :href=>"http://gravatar.com/emails", :target=>:_blank }
+    = image_tag gravatar_url(@user), :alt=>"#{@user.name} Gravatar"
+    %br
+    Change
 
 = form_for(@user) do |f|
   = render 'shared/errors', :obj=>f.object
@@ -12,4 +18,4 @@
     %dt= f.label( :password_confirmation, "Confirm Password" )
     %dd= f.password_field( :password_confirmation )
   .actions
-    = f.submit( "Sign Up" )
+    = f.submit( "Update" )
