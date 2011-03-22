@@ -12,6 +12,11 @@
     .container
       = render "layouts/header"
       %section
+        - unless flash.empty?
+          %section.flash#GlobalFlash
+            %ul
+              - flash.each do |k,message|
+                %li.message{ :class=>k }= message
         %h1 #{@title}
         = yield
       = render "layouts/footer"
