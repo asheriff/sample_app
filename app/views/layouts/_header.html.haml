@@ -5,4 +5,8 @@
     %ul
       %li #{link_to "Home", root_path}
       %li #{link_to "Help", help_path}
-      %li #{link_to "Sign In", "#"}
+      - if signed_in?
+        %li #{link_to "Profile", current_user}
+        %li #{link_to "Sign Out", signout_path, :method=>:delete}
+      - else
+        %li #{link_to "Sign In", signin_path}
