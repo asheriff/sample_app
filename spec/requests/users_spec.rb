@@ -15,7 +15,9 @@ describe "Users" do
           response.should have_selector("#new_user .form_errors")
         }.should_not change(User, :count)
       end
-      
+    end
+    
+    describe "success" do
       it "should create a new user" do
         lambda {
           visit signup_path
