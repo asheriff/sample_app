@@ -42,6 +42,14 @@ class User < ActiveRecord::Base
     user
   end
   
+  # Returns the user if...
+  #
+  def self.authenticate_with_salt(id, salt)
+    return nil unless user = find_by_id(id)
+    return nil unless user.salt == salt
+    user
+  end
+  
   # Returns true if +password+ matches user password.
   #
   def has_password?(password)

@@ -1,2 +1,17 @@
-%h1 Sesssions#new
-%p Find me in app/views/sesssions/new.html.erb
+- @title = "Sign In"
+
+%p Sign in to this app.
+
+= form_for(:session, :url=>sessions_path) do |f|
+  %dl.form
+    %dt= f.label( :email )
+    %dd= f.text_field( :email )
+    %dt= f.label( :password )
+    %dd= f.password_field( :password )
+  .actions
+    = f.submit( "Sign In" )
+
+%p
+  Not a member yet?
+  = link_to "Sign up now!", signup_path
+  
