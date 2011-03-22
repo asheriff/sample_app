@@ -125,9 +125,25 @@ FOOTER
     :background $COLOR_ACCENT_LIGHT
     :color $COLOR_ACCENT
 
+.flash
+  :padding 0
+  UL
+    :list-style none
+    :padding 0
+    :margin 0
+  .message
+    :margin .4em 0
+    :padding .2em 1em
+    :border 1px solid $COLOR_ACCENT_LIGHT
+    +round
+    :background lighten($COLOR_ACCENT_LIGHT, 20%)
+  .error
+    :border 1px solid $COLOR_RED
+    :background lighten($COLOR_RED, 40%)
+
 .profile
-  :border 1px solid $COLOR_ACCENT_LIGHT
-  :background lighten($COLOR_ACCENT_LIGHT, 20%)
+  :border 1px solid $COLOR_SECONDARY
+  :background lighten($COLOR_SECONDARY, 60%)
 
 .gravatar
   :float right

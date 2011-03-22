@@ -122,9 +122,27 @@ FOOTER {
     background: #bfe88c;
     color: #0e626e; }
 
+.flash {
+  padding: 0; }
+  .flash UL {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+  .flash .message {
+    margin: 0.4em 0;
+    padding: 0.2em 1em;
+    border: 1px solid #bfe88c;
+    -moz-border-radius: 0.4em;
+    -webkit-border-radius: 0.4em;
+    border-radius: 0.4em;
+    background: #eef9e1; }
+  .flash .error {
+    border: 1px solid red;
+    background: #ffcccc; }
+
 .profile {
-  border: 1px solid #bfe88c;
-  background: #eef9e1; }
+  border: 1px solid #332136;
+  background: #cfb6d3; }
 
 .gravatar {
   float: right;
