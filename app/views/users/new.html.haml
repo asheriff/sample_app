@@ -1,4 +1,15 @@
 - @title = "Sign Up"
 
-%h1 Users#new
-%p Find me in app/views/users/new.html.haml
+= form_for(@user) do |f|
+  = render 'shared/errors'
+  %dl.form
+    %dt= f.label( :name )
+    %dd= f.text_field( :name )
+    %dt= f.label( :email )
+    %dd= f.text_field( :email )
+    %dt= f.label( :password )
+    %dd= f.password_field( :password )
+    %dt= f.label( :password_confirmation, "Confirm Password" )
+    %dd= f.password_field( :password_confirmation )
+  .actions
+    = f.submit( "Sign Up" )
