@@ -83,5 +83,22 @@ describe UsersController do
         response.should render_template('new')
       end
     end
+    
+    describe "success" do
+      before :each do
+        @attrs = { :name=>"New User", :email=>"user@foo.com", :password=>"foobar", :password_confirmation=>"foobar" }
+      end
+      
+      it "should create a user" do
+        lambda {
+          post "create", :user=>@attrs
+        }.should change(User, :count).by(1)
+      end
+      
+      it "should redirect to the user show page" do
+        post "create", :user=>@attrs
+        response.should redirect_to(user_path(assigns(:user)))
+      end
+    end
   end
 end
