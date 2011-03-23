@@ -136,6 +136,9 @@ FOOTER {
     -webkit-border-radius: 0.4em;
     border-radius: 0.4em;
     background: #eef9e1; }
+  .flash .notice {
+    border: 1px solid yellow;
+    background: #ffffcc; }
   .flash .error {
     border: 1px solid red;
     background: #ffcccc; }

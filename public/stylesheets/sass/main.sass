@@ -4,6 +4,7 @@ $COLOR_ACCENT: #0E626E
 $COLOR_ACCENT_LIGHT: #BFE88C
 $COLOR_SECONDARY: #332136
 $COLOR_RED: #F00
+$COLOR_YELLOW: #FF0
 
 =round($radius:.4em)
   :-moz-border-radius $radius
@@ -137,6 +138,9 @@ FOOTER
     :border 1px solid $COLOR_ACCENT_LIGHT
     +round
     :background lighten($COLOR_ACCENT_LIGHT, 20%)
+  .notice
+    :border 1px solid $COLOR_YELLOW
+    :background lighten($COLOR_YELLOW, 40%)
   .error
     :border 1px solid $COLOR_RED
     :background lighten($COLOR_RED, 40%)
