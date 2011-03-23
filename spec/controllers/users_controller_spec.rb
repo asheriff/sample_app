@@ -138,7 +138,53 @@ describe UsersController do
         :content => "Change"
       )
     end
-    
   end
-
+  
+  describe "PUT 'update'" do
+    before :each do
+      @user = Factory(:user)
+      test_sign_in(@user)
+    end
+    
+    describe "failure" do
+      before :each do
+        @attrs = { :name=>"", :email=>"", :password=>"", :password_confirmation=>"" }
+      end
+      
+      it "should render the edit page" do
+        put "update", :id=>@user, :user=>@attrs
+        response.should render_template("edit")
+      end
+      
+      it "should have the correct title" do
+        put "update", :id=>@user, :user=>@attrs
+        response.should have_selector("title",
+          :content => "#{@base_title} :: #{@attrs[:name]} :: Edit"
+        )
+      end
+    end
+    
+    describe "success" do
+      before :each do
+        @attrs = { :name=>"New Name", :email=>"new@new.com", :password=>"newpass", :password_confirmation=>"newpass" }
+      end
+      
+      it "should change teh user's attributes" do
+        put "update", :id=>@user, :user=>@attrs
+        @user.reload
+        @user.name.should eq @attrs[:name]
+        @user.email.should eq @attrs[:email]
+      end
+      
+      it "should redirect to the show user screen" do
+        put "update", :id=>@user, :user=>@attrs
+        response.should redirect_to(user_path(@user))
+      end
+      
+      it "should have a flash message" do
+        put "update", :id=>@user, :user=>@attrs
+        flash[:success].should =~ /updated/i
+      end
+    end
+  end
 end
