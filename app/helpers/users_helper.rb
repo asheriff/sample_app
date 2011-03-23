@@ -5,7 +5,7 @@ module UsersHelper
       :default => :identicon,
     }.merge(options)
     
-    src = "http://www.gravatar.com/avatar/#{@user.email_md5}?" +
+    src = "http://www.gravatar.com/avatar/#{user.email_md5}?" +
      opts.collect{ |k,v| "#{k}=#{v}"}.join("&")
   end
 end
