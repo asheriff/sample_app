@@ -28,7 +28,7 @@ UL, OL {
   margin-left: 1em; }
 
 .container {
-  width: 510px;
+  width: 600px;
   margin: 0 auto;
   padding: 1em; }
 
@@ -148,6 +148,16 @@ FOOTER {
   background: #cfb6d3; }
 
 .gravatar {
+  margin-right: 0.5em; }
+
+.profile_gravatar {
   float: right;
   position: relative;
   top: -5em; }
+
+.users {
+  margin: 0;
+  padding: 0; }
+  .users LI {
+    list-style: none;
+    margin: 0.4em 0; }

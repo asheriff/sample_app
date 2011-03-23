@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate, :only => [
+    :index,
     :edit,
     :update,
   ]
@@ -8,6 +9,10 @@ class UsersController < ApplicationController
     :edit,
     :update,
   ]
+  
+  def index
+    @users = User.all
+  end
   
   def new
     @user = User.new

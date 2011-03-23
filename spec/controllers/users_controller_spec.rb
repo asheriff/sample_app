@@ -6,6 +6,47 @@ describe UsersController do
   before(:each) do
     @base_title = "My Silly Rials App"
   end
+  
+  describe "GET 'index'" do
+    describe "for non-authenticated users" do
+      it "should deny access" do
+        get "index"
+        response.should redirect_to(signin_path)
+      end
+    end
+    
+    describe "for authenticated users" do
+      before :each do
+        @user = test_sign_in(Factory(:user))
+        @users = [@user]
+        
+        %w(Bob Carl Dave Earl Fred Gabe).each do |name|
+          @users << Factory(:user, :name=>name, :email=>"#{name.downcase}@foo.com")
+        end
+      end
+      
+      it "should be successful" do
+        get "index"
+        response.should be_success
+      end
+      
+      it "should have the right title" do
+        get "index"
+        response.should have_selector("title",
+          :content => "#{@base_title} :: All Users"
+        )
+      end
+      
+      it "should have an element for each user" do
+        get "index"
+        @users.each do |user|
+          response.should have_selector("li",
+            :content => user.name
+          )
+        end
+      end
+    end
+  end
 
   describe "GET 'new'" do
     it "should be successful" do
@@ -53,7 +94,7 @@ describe UsersController do
     it "should have a profile image" do
       get 'show', :id => @user
       response.should have_selector("img",
-        :class => "gravatar",
+        :class => "profile_gravatar",
         :alt => "#{@user.name} Gravatar"
       )
     end
