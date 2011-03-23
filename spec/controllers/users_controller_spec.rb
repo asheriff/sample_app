@@ -187,4 +187,22 @@ describe UsersController do
       end
     end
   end
+  
+  describe "authentication for edit/update screens" do
+    before :each do
+      @user = Factory(:user)
+    end
+    
+    describe "for non-authenticated users" do
+      it "should deny accss to 'edit'" do
+        get "edit", :id=>@user
+        response.should redirect_to(signin_path)
+      end
+      
+      it "should deny accss to 'update'" do
+        put "update", :id=>@user, :user=>{}
+        response.should redirect_to(signin_path)
+      end
+    end
+  end
 end
