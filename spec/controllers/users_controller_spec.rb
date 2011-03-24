@@ -20,8 +20,8 @@ describe UsersController do
         @user = test_sign_in(Factory(:user))
         @users = [@user]
         
-        %w(Bob Carl Dave Earl Fred Gabe).each do |name|
-          @users << Factory(:user, :name=>name, :email=>"#{name.downcase}@foo.com")
+        30.times do
+          @users << Factory( :user, :email=>Factory.next(:email) )
         end
       end
       
@@ -44,6 +44,16 @@ describe UsersController do
             :content => user.name
           )
         end
+      end
+      
+      it "should paginate user list" do
+        get "index"
+        response.should have_selector(".pagination")
+        response.should have_selector(".pagination .disabled")
+        response.should have_selector("a", 
+          :href => "/users?page=2",
+          :content => "2"
+        )
       end
     end
   end
