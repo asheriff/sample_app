@@ -14,7 +14,8 @@ class UsersController < ApplicationController
   before_filter :admin_user, :only=>:destroy
   
   before_filter :authenticated_user, :only=>[
-    :new
+    :new,
+    :create,
   ]
   
   

@@ -125,6 +125,25 @@ describe UsersController do
   end
   
   describe "POST 'create'" do
+    describe "as a authenticated user" do
+      before :each do
+        @user = Factory(:user)
+        test_sign_in(@user)
+        @attrs = { :name=>"New User", :email=>"user@foo.com", :password=>"foobar", :password_confirmation=>"foobar" }
+      end
+      
+      it "should not create a user" do
+        lambda {
+          post "create", :user=>@attrs
+        }.should_not change(User, :count)
+      end
+      
+      it "should redirect to home page" do
+        post "create", :user=>@attrs
+        response.should redirect_to(root_path)
+      end
+    end
+    
     describe "failure" do
       before :each do
         @attrs = { :name=>"", :email=>"", :password=>"", :password_confirmation=>"" }
