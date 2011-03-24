@@ -106,7 +106,25 @@ describe User do
         user = User.authenticate(@attrs[:email], @attrs[:password])
         user.should eq @user
       end
-      
+    end
+  end
+  
+  describe "admin attribute" do
+    before :each do
+      @user = User.create!(@attrs)
+    end
+    
+    it "should respond to admin" do
+      @user.should respond_to(:admin)
+    end
+    
+    it "should not be an admin by default" do
+      @user.admin?.should eq false
+    end
+    
+    it "should be convertiable to an admin" do
+      @user.toggle!(:admin)
+      @user.admin?.should eq true
     end
   end
 end
