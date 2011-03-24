@@ -1,5 +1,5 @@
 %li
-  - if current_user.admin?
+  - if current_user.admin? && user != current_user
     = link_to "Delete", user, :method=>:delete, :confirm=>"You sure?", :class=>:button
   = image_tag gravatar_url(user, :size=>20), :alt=>"#{user.name} Gravatar", :class=>:gravatar
   = link_to user.name, user

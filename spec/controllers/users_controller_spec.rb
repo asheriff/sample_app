@@ -72,9 +72,17 @@ describe UsersController do
           @user.toggle!(:admin)
         end
         
-        it "should have a delete link for each user" do
+        it "should have a delete link for each user except self" do
           get "index"
+          
+          # Make sure the default GET link to /user/:id is there and
+          # not on a subsequent page in the pagination
+          response.should have_selector(".users a",
+            :href => user_path(@user)
+          )
+          
           @users.first(@pagination_count).each do |user|
+            next if user = @user
             response.should have_selector(".users a",
               :href => user_path(user),
               :rel => "nofollow",
