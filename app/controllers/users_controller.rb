@@ -13,6 +13,11 @@ class UsersController < ApplicationController
   
   before_filter :admin_user, :only=>:destroy
   
+  before_filter :authenticated_user, :only=>[
+    :new
+  ]
+  
+  
   def index
     @users = User.paginate( :page=>params[:page] )
   end
@@ -72,5 +77,9 @@ class UsersController < ApplicationController
     
     def admin_user
       redirect_to(root_path) unless current_user.admin?
+    end
+    
+    def authenticated_user
+      redirect_to(root_path) if signed_in?
     end
 end

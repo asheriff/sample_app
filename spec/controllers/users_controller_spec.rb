@@ -59,16 +59,30 @@ describe UsersController do
   end
 
   describe "GET 'new'" do
-    it "should be successful" do
-      get 'new'
-      response.should be_success
+    describe "as a non-authenticated user" do
+      it "should be successful" do
+        get 'new'
+        response.should be_success
+      end
+      
+      it "should have right title" do
+        get 'new'
+        response.should have_selector("title",
+          :content => "#{@base_title} :: Sign Up"
+        )
+      end
     end
     
-    it "should have right title" do
-      get 'new'
-      response.should have_selector("title",
-        :content => "#{@base_title} :: Sign Up"
-      )
+    describe "as a authenticated user" do
+      before :each do
+        @user = Factory(:user)
+        test_sign_in(@user)
+      end
+      
+      it "should redirect to home page" do
+        get 'new'
+        response.should redirect_to(root_path)
+      end
     end
   end
   
