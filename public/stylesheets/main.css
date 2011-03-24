@@ -143,6 +143,18 @@ FOOTER {
     border: 1px solid red;
     background: #ffcccc; }
 
+.pagination {
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: #cfb8a5;
+  margin: 1em 0;
+  padding: 0.4em 0; }
+  .pagination A {
+    text-decoration: none; }
+  .pagination EM {
+    font-style: normal;
+    font-weight: bold; }
+
 .profile {
   border: 1px solid #332136;
   background: #cfb6d3; }
