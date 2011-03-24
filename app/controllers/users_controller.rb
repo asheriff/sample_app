@@ -1,23 +1,8 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [
-    :index,
-    :edit,
-    :update,
-    :destroy,
-  ]
-  
-  before_filter :correct_user, :only => [
-    :edit,
-    :update,
-  ]
-  
-  before_filter :admin_user, :only=>:destroy
-  
-  before_filter :authenticated_user, :only=>[
-    :new,
-    :create,
-  ]
-  
+  before_filter :authenticate, :only => %w(index edit update destroy)
+  before_filter :correct_user, :only => %w(edit update)
+  before_filter :admin_user, :only => %w(destroy)
+  before_filter :authenticated_user, :only => %w(new create)
   
   def index
     @users = User.paginate( :page=>params[:page] )
