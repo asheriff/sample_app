@@ -17,6 +17,7 @@ describe UsersController do
     
     describe "for authenticated users" do
       before :each do
+        @pagination_count = 30
         @user = test_sign_in(Factory(:user))
         @users = [@user]
         
@@ -54,6 +55,33 @@ describe UsersController do
           :href => "/users?page=2",
           :content => "2"
         )
+      end
+      
+      describe "without admin privleges" do
+        it "should not have a delete link for any users" do
+          get "index"
+          response.should_not have_selector(".users a",
+            :rel => "nofollow",
+            :"data-method" => "delete"
+          )
+        end
+      end
+      
+      describe "with admin privleges" do
+        before :each do
+          @user.toggle!(:admin)
+        end
+        
+        it "should have a delete link for each user" do
+          get "index"
+          @users.first(@pagination_count).each do |user|
+            response.should have_selector(".users a",
+              :href => user_path(user),
+              :rel => "nofollow",
+              :"data-method" => "delete"
+            )
+          end
+        end
       end
     end
   end
