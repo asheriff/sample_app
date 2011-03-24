@@ -2,14 +2,6 @@
 
 = form_for(@user) do |f|
   = render 'shared/errors', :obj=>f.object
-  %dl.form
-    %dt= f.label( :name )
-    %dd= f.text_field( :name )
-    %dt= f.label( :email )
-    %dd= f.text_field( :email )
-    %dt= f.label( :password )
-    %dd= f.password_field( :password )
-    %dt= f.label( :password_confirmation, "Confirm Password" )
-    %dd= f.password_field( :password_confirmation )
+  = render 'form', :f=>f
   .actions
     = f.submit( "Sign Up" )
