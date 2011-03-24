@@ -86,6 +86,17 @@ FOOTER
   A
     :font-size .8em
 
+A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit]
+  :padding .1em .8em
+  :background $COLOR_ACCENT
+  :border none
+  +round
+  :color #FFF
+  :text-decoration none
+  &:HOVER
+    :background $COLOR_ACCENT_LIGHT
+    :color $COLOR_ACCENT
+  
 .form
   DT
     :margin .5em 0 0
