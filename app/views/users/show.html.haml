@@ -10,6 +10,9 @@
     %tr
       %th URL
       %td #{link_to user_url(@user), @user}
+    %tr
+      %th Post
+      %td= @microposts.count
 
 %section.microposts
   - unless @user.microposts.empty?
