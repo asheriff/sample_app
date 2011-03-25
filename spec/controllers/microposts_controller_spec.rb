@@ -59,5 +59,15 @@ describe MicropostsController do
       end
     end
   end
+  
+  describe "DELETE 'destroy'" do
+    describe "for an authorized user" do
+      pending
+    end
+    
+    describe "for a non-authorized user" do
+      pending
+    end
+  end
 end
   

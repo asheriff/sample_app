@@ -6,3 +6,6 @@
     .user= link_to feed_item.user.name, feed_item.user
     .content= feed_item.content
     .timestamp Created #{time_ago_in_words(feed_item.created_at)} ago
+  .actions
+    - if feed_item.user == current_user
+      = link_to "Delete", feed_item, :method=>:delete, :confirm=>"Are you sure?"
