@@ -172,6 +172,23 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit] {
   border: 1px solid #332136;
   background: #cfb6d3; }
 
+.microposts {
+  border: 1px solid #784f2b;
+  background: #f4eae1; }
+  .microposts .pagination {
+    border: none;
+    margin: 1em 0 0; }
+  .microposts UL {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+    .microposts UL LI {
+      margin-top: -1px;
+      padding: 0.4em 0;
+      border-width: 1px 0;
+      border-style: solid;
+      border-color: #cc9b70; }
+
 .gravatar {
   margin-right: 0.5em; }
 

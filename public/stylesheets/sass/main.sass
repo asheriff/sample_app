@@ -172,6 +172,24 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit]
 .profile
   :border 1px solid $COLOR_SECONDARY
   :background lighten($COLOR_SECONDARY, 60%)
+  
+.microposts
+  :border 1px solid $COLOR_MAIN_LIGHT
+  :background lighten($COLOR_MAIN_LIGHT, 60%)
+  .pagination
+    :border none
+    :margin 1em 0 0
+  UL
+    :list-style none
+    :padding 0
+    :margin 0
+    LI
+      :margin-top -1px
+      :padding .4em 0
+      :border
+        :width 1px 0
+        :style solid
+        :color lighten($COLOR_MAIN_LIGHT, 30%)
 
 .gravatar
   :margin-right .5em
