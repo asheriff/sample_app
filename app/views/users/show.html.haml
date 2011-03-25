@@ -10,3 +10,9 @@
     %tr
       %th URL
       %td #{link_to user_url(@user), @user}
+
+%section.microposts
+  - unless @user.microposts.empty?
+    %ul
+      = render @microposts
+    = will_paginate @microposts

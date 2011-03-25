@@ -158,6 +158,18 @@ describe UsersController do
         :alt => "#{@user.name} Gravatar"
       )
     end
+    
+    it "should show the user's micropost" do
+      posts = []
+      3.times do |n|
+        posts << Factory(:micropost, :user=>@user, :content=>"Post #{n}")
+      end
+      
+      get :show, :id=>@user
+      posts.each do |post|
+        response.should have_selector(".content", :content=>post.content )
+      end
+    end
   end
   
   describe "POST 'create'" do
