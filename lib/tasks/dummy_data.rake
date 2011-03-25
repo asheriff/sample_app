@@ -25,5 +25,11 @@ namespace :db do
         :password_confirmation => password
       )
     end
+    
+    User.all(:limit=>6).each_with_index do |user,index|
+      ((index+1)*10).times do
+        user.microposts.create! :content=>Faker::Lorem.sentence(5)
+      end
+    end
   end
 end
