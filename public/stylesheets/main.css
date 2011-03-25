@@ -11,6 +11,10 @@ BODY {
 H2 {
   font-size: 1.2em; }
 
+H3 {
+  font-size: 1.1em;
+  margin: 0; }
+
 PRE, CODE {
   font-family: "Courier New", monospace;
   font-size: 1em; }
@@ -92,17 +96,22 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit] {
     background: #bfe88c;
     color: #0e626e; }
 
-.form DT {
-  margin: 0.5em 0 0;
-  font-weight: bold; }
-.form DD {
-  margin: 0.5em 0 0.5em 0; }
-.form .actions {
-  margin: 1em 0; }
-.form .field_with_errors {
-  color: red; }
-  .form .field_with_errors INPUT {
-    border-color: red; }
+.clearfix {
+  display: inline-block; }
+
+.form {
+  margin: 0; }
+  .form DT {
+    margin: 0.5em 0 0;
+    font-weight: bold; }
+  .form DD {
+    margin: 0.5em 0 0.5em 0; }
+  .form .actions {
+    margin: 1em 0; }
+  .form .field_with_errors {
+    color: red; }
+    .form .field_with_errors INPUT {
+      border-color: red; }
 
 .form_errors {
   padding: 1em;
@@ -168,9 +177,18 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit] {
     font-style: normal;
     font-weight: bold; }
 
-.profile {
+.profile, .user_info, .micropost_form {
   border: 1px solid #332136;
   background: #cfb6d3; }
+
+.user_info {
+  float: right;
+  width: 200px; }
+
+.micropost_form {
+  float: left;
+  width: 338px;
+  margin-right: 10px; }
 
 .microposts {
   border: 1px solid #784f2b;
@@ -188,6 +206,10 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit] {
       border-width: 1px 0;
       border-style: solid;
       border-color: #cc9b70; }
+
+#micropost_content {
+  width: 100%;
+  height: 4em; }
 
 .gravatar {
   margin-right: 0.5em; }

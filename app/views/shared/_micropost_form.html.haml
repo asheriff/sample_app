@@ -1,0 +1,7 @@
+= form_for @micropost do |f|
+  = render 'shared/errors', :obj=>f.object
+  %dl.form
+    %dt= f.label( "What's up?" )
+    %dd= f.text_area( :content )
+  .actions
+    = f.submit( "Post" )
