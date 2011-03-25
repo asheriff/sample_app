@@ -63,6 +63,10 @@ class User < ActiveRecord::Base
     Digest::MD5.hexdigest(email)
   end
   
+  def feed
+    Micropost.where( "user_id = ?", id )
+  end
+  
   private
     
     def encrypt_password
