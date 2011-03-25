@@ -98,6 +98,16 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit] {
 
 .clearfix {
   display: inline-block; }
+  .clearfix:AFTER {
+    content: "\0020";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden; }
+
+.clearfix {
+  display: block; }
 
 .form {
   margin: 0; }
@@ -190,22 +200,32 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit] {
   width: 338px;
   margin-right: 10px; }
 
-.microposts {
+.microposts, .feed {
   border: 1px solid #784f2b;
   background: #f4eae1; }
-  .microposts .pagination {
+  .microposts .pagination, .feed .pagination {
     border: none;
     margin: 1em 0 0; }
-  .microposts UL {
+  .microposts UL, .feed UL {
     list-style: none;
     padding: 0;
     margin: 0; }
-    .microposts UL LI {
+    .microposts UL LI, .feed UL LI {
       margin-top: -1px;
       padding: 0.4em 0;
       border-width: 1px 0;
       border-style: solid;
       border-color: #cc9b70; }
+
+.feed .image {
+  float: left; }
+.feed .text {
+  float: left; }
+.feed .actions {
+  float: right; }
+.feed .timestamp {
+  font-size: 0.85em;
+  color: #666666; }
 
 #micropost_content {
   width: 100%;

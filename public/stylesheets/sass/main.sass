@@ -101,7 +101,17 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit]
     :color $COLOR_ACCENT
 
 .clearfix
+  &:AFTER
+    :content "\0020"
+    :display block
+    :height 0
+    :clear both
+    :overflow hidden
+    :visibility hidden
   :display inline-block
+  
+.clearfix
+  :display block
 
 .form
   :margin 0
@@ -189,7 +199,7 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit]
   :width 338px
   :margin-right 10px
 
-.microposts
+.microposts, .feed
   :border 1px solid $COLOR_MAIN_LIGHT
   :background lighten($COLOR_MAIN_LIGHT, 60%)
   .pagination
@@ -206,6 +216,17 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit]
         :width 1px 0
         :style solid
         :color lighten($COLOR_MAIN_LIGHT, 30%)
+
+.feed
+  .image
+    :float left
+  .text
+    :float left
+  .actions
+    :float right
+  .timestamp
+    :font-size .85em
+    :color #666
 
 #micropost_content
   :width 100%

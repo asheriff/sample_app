@@ -1,0 +1,8 @@
+%li.clearfix
+  .image
+    = link_to feed_item.user do
+      = image_tag gravatar_url(feed_item.user, :size=>40), :alt=>"#{feed_item.user.name} Gravatar", :class=>:gravatar
+  .text
+    .user= link_to feed_item.user.name, feed_item.user
+    .content= feed_item.content
+    .timestamp Created #{time_ago_in_words(feed_item.created_at)} ago

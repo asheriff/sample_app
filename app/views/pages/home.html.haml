@@ -10,3 +10,9 @@
       = render 'shared/user_info', :user=>current_user
     %section.micropost_form
       = render 'shared/micropost_form'
+  - if !@feed_items.empty?
+    %section.feed
+      %ul
+        = render :partial=>'shared/feed_item', :collection=>@feed_items
+      = will_paginate @feed_items
+    
