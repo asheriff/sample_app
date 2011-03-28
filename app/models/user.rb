@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   
   has_many :microposts, :dependent=>:destroy
   has_many :relationships, :foreign_key=>:follower_id, :dependent=>:destroy
+  has_many :following, :through=>:relationships, :source=>:followed
   
   validates :name,
     :presence => true,
@@ -66,6 +67,24 @@ class User < ActiveRecord::Base
   
   def feed
     Micropost.where( "user_id = ?", id )
+  end
+  
+  # Returns true if following +user+.
+  #
+  def following?(user)
+    relationships.find_by_followed_id(user)
+  end
+  
+  # Follow the +user+.
+  #
+  def follow!(user)
+    relationships.create(:followed_id => user.id)
+  end
+  
+  # Unfollow the +user+.
+  #
+  def unfollow!(user)
+    relationships.find_by_followed_id(user.id).destroy
   end
   
   private
