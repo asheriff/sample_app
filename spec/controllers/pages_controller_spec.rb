@@ -23,4 +23,38 @@ describe PagesController do
     end
   end
   
+  describe "home page" do
+    describe "user info section" do
+      before :each do
+        @user = test_sign_in( Factory(:user) )
+      end
+      
+      it "should show correct count and inflection when zero" do
+        get "home"
+        response.should have_selector(".micropost_count",
+          :content => "0 microposts"
+        )
+      end
+      
+      it "should show correct count and inflection when one" do
+        Factory(:micropost, :user=>@user)
+        
+        get "home"
+        response.should have_selector(".micropost_count",
+          :content => "1 micropost"
+        )
+      end
+      
+      it "should show correct count and inflection when many" do
+        Factory(:micropost, :user=>@user)
+        Factory(:micropost, :user=>@user)
+        
+        get "home"
+        response.should have_selector(".micropost_count",
+          :content => "2 microposts"
+        )
+      end
+    end
+  end
+  
 end
