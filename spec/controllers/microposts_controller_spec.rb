@@ -61,12 +61,31 @@ describe MicropostsController do
   end
   
   describe "DELETE 'destroy'" do
-    describe "for an authorized user" do
-      pending
+    describe "for a non-authorized user" do
+      before :each do
+        @user = Factory(:user)
+        @micropost = Factory(:micropost, :user=>@user)
+        wrong_user = Factory(:user, :email=>Factory.next(:email))
+        test_sign_in(wrong_user)
+      end
+      
+      it "should deny access" do
+        delete "destroy", :id=>@micropost
+        response.should redirect_to(root_path)
+      end
     end
     
-    describe "for a non-authorized user" do
-      pending
+    describe "for an authorized user" do
+      before :each do
+        @user = test_sign_in( Factory(:user) )
+        @micropost = Factory(:micropost, :user=>@user)
+      end
+      
+      it "should destroy the micropost" do
+        lambda {
+          delete "destroy", :id=>@micropost
+        }.should change(Micropost, :count).by(-1)
+      end
     end
   end
 end
