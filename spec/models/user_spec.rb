@@ -166,4 +166,15 @@ describe User do
       end
     end
   end
+  
+  describe "relationshipds" do
+    before :each do
+      @user = User.create!(@attrs)
+      @followed = Factory(:user)
+    end
+    
+    it "should have a relationships method" do
+      @user.should respond_to(:relationships)
+    end
+  end
 end
