@@ -209,5 +209,18 @@ describe User do
       @user.unfollow!(@followed)
       @user.following.include?(@followed).should be_false
     end
+    
+    it "should have a reverse_relationships method" do
+      @user.should respond_to(:reverse_relationships)
+    end
+    
+    it "should have a followers method" do
+      @user.should respond_to(:followers)
+    end
+    
+    it "should have the follower user in the followers array" do
+      @user.follow!(@followed)
+      @followed.followers.include?(@user).should be_true
+    end
   end
 end
