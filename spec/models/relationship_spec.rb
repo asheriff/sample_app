@@ -11,6 +11,18 @@ describe Relationship do
     @relationship.save!
   end
   
+  describe "validations" do
+    it "should require a follower_id" do
+      @relationship.follower_id = nil
+      @relationship.should_not be_valid
+    end
+    
+    it "should require a followed_id" do
+      @relationship.followed_id = nil
+      @relationship.should_not be_valid
+    end
+  end
+  
   describe "follow methods" do
     before :each do
       @relationship.save
