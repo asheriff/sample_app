@@ -1,4 +1,7 @@
-require 'faker'
+begin
+  require 'faker'
+rescue LoadError
+end
 
 namespace :db do
   desc "Insert dummy data"
