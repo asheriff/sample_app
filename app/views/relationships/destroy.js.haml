@@ -1,0 +1,8 @@
+:plain
+  $('.follow_form').html(
+    "#{escape_javascript render('users/follow')}"
+  );
+  
+  $('.followers_count A').html(
+    'Followed by #{pluralize(@user.followers.count, "user")}'
+  );
