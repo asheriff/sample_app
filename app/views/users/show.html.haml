@@ -1,21 +1,11 @@
 - @title = @user.name
 
-= image_tag gravatar_url(@user), :class=>:profile_gravatar, :alt=>"#{@user.name} Gravatar"
-
-%section.profile
-  %table
-    %tr
-      %th Name
-      %td #{@user.name}
-    %tr
-      %th URL
-      %td #{link_to user_url(@user), @user}
-    %tr
-      %th Post
-      %td= @microposts.count
-
-%section.microposts
-  - unless @user.microposts.empty?
-    %ul
-      = render @microposts
-    = will_paginate @microposts
+.clearfix
+  %section.user_info
+    = render 'shared/user_info', :user=>@user
+  
+  %section.microposts
+    - unless @user.microposts.empty?
+      %ul
+        = render @microposts
+      = will_paginate @microposts

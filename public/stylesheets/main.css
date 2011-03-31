@@ -195,7 +195,7 @@ A.button, BUTTON, INPUT[type=button], INPUT[type=reset], INPUT[type=submit] {
   float: right;
   width: 200px; }
 
-.micropost_form {
+.micropost_form, .microposts {
   float: left;
   width: 338px;
   margin-right: 10px; }

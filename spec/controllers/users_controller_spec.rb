@@ -154,7 +154,7 @@ describe UsersController do
     it "should have a profile image" do
       get 'show', :id => @user
       response.should have_selector("img",
-        :class => "profile_gravatar",
+        :class => "gravatar",
         :alt => "#{@user.name} Gravatar"
       )
     end
