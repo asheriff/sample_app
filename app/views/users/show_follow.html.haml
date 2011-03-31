@@ -1,0 +1,15 @@
+.clearfix
+  %section.user_info
+    = render :layout=>'shared/user_info', :locals=>{ :user=>@user } do
+      .gravitars
+        - @all_users.each do |user|
+          = link_to user do
+            = image_tag gravatar_url(user, :size=>20), :class=>:user_info_gravatar, :alt=>"#{user.name} Gravatar"
+  %section.users
+    - if @users.empty?
+      %h2 Nobody
+    - else
+      %ul.users
+        = render @users
+      = will_paginate
+

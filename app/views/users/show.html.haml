@@ -1,5 +1,7 @@
 - @title = @user.name
 
+= render 'follow_form' if signed_in?
+
 .clearfix
   %section.user_info
     = render 'shared/user_info', :user=>@user
