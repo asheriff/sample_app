@@ -2,3 +2,10 @@
   = image_tag gravatar_url(user), :class=>:gravatar, :alt=>"#{user.name} Gravatar"
 %h3.user_name= user.name
 .micropost_count= pluralize(user.microposts.count, "micropost")
+.following_count
+  = link_to following_user_path(user) do
+    Following #{pluralize(user.following.count, "user")}
+.followers_count
+  = link_to followers_user_path(user) do
+    Followed by #{pluralize(user.followers.count, "user")}
+= yield

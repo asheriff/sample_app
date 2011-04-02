@@ -7,7 +7,7 @@ describe PagesController do
     @base_title = "My Silly Rials App"
   end
 
-  %w(home contact about help).each do |action|
+  %w(contact about help).each do |action|
     describe "GET '#{action}'" do
       it "should be successful" do
         get action
@@ -18,6 +18,44 @@ describe PagesController do
         get action
         response.should have_selector("title",
           :content => "#{@base_title} :: #{action.capitalize}"
+        )
+      end
+    end
+  end
+  
+  describe "GET 'home'" do
+    describe "when not authenticated" do
+      before :each do
+        get 'home'
+      end
+      
+      it "should be successful" do
+        response.should be_success
+      end
+      
+      it "should have the correct title" do
+        response.should have_selector("title",
+          :content => "#{@base_title} :: Home"
+        )
+      end
+    end
+    
+    describe "when authenticated" do
+      before :each do
+        @user = test_sign_in(Factory(:user))
+        other_user = Factory(:user, :email=>Factory.next(:email))
+        other_user.follow!(@user)
+      end
+      
+      it "should " do
+        get 'home'
+        response.should have_selector("a",
+          :href => following_user_path(@user),
+          :content => "Following 0 users"
+        )
+        response.should have_selector("a",
+          :href => followers_user_path(@user),
+          :content => "Followed by 1 user"
         )
       end
     end
@@ -56,5 +94,4 @@ describe PagesController do
       end
     end
   end
-  
 end
