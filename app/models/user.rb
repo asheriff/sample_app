@@ -67,8 +67,9 @@ class User < ActiveRecord::Base
     Digest::MD5.hexdigest(email)
   end
   
+  # Returns all posts by self + followed users.
   def feed
-    Micropost.where( "user_id = ?", id )
+    Micropost.from_users_followed_by(self)
   end
   
   # Returns true if following +user+.

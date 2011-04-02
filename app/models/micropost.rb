@@ -19,4 +19,10 @@ class Micropost < ActiveRecord::Base
   validates :user_id, :presence=>true
   
   default_scope :order => "microposts.created_at DESC"
+  
+  def self.from_users_followed_by(user)
+    ids = user.following.map{ |u| u.id } << user.id
+    id_list = ids * ","
+    where("user_id IN (#{id_list})")
+  end
 end
