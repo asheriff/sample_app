@@ -65,6 +65,7 @@ describe PagesController do
     describe "user info section" do
       before :each do
         @user = test_sign_in( Factory(:user) )
+        @other_user = Factory(:user, :email=>Factory.next(:email))
       end
       
       it "should show correct count and inflection when zero" do
@@ -90,6 +91,24 @@ describe PagesController do
         get "home"
         response.should have_selector(".micropost_count",
           :content => "2 microposts"
+        )
+      end
+      
+      it "should show correct count for followers" do
+        @other_user.follow!(@user)
+        
+        get "home"
+        response.should have_selector(".followers_count a",
+          :content => "Followed by 1 user"
+        )
+      end
+      
+      it "should show correct count for following" do
+        @user.follow!(@other_user)
+        
+        get "home"
+        response.should have_selector(".following_count a",
+          :content => "Following 1 user"
         )
       end
     end
