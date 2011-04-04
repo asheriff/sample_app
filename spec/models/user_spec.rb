@@ -230,5 +230,23 @@ describe User do
       @user.follow!(@followed)
       @followed.followers.include?(@user).should be_true
     end
+    
+    it "should destroy followers relationships" do
+      @user.follow!(@followed)
+      lambda{
+        @followed.destroy
+      }.should change(Relationship, :count).by(-1)
+    end
+    
+    it "should destroy following relationships" do
+      @follower = Factory(:user, :email=>Factory.next(:email))
+      
+      @user.follow!(@followed)
+      @follower.follow!(@user)
+      
+      lambda{
+        @user.destroy
+      }.should change(Relationship, :count).by(-2)
+    end
   end
 end
