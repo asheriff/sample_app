@@ -59,17 +59,18 @@ class UsersController < ApplicationController
   
   def following
     @title = "Following"
-    @user = User.find(params[:id])
-    @users = @user.following.paginate( :page=>params[:page], :per_page=>10 )
-    @all_users = @user.following
-    render :show_follow
+    show_follow(:following)
   end
   
   def followers
     @title = "Followers"
+    show_follow(:followers)
+  end
+  
+  def show_follow(action)
     @user = User.find(params[:id])
-    @users = @user.followers.paginate( :page=>params[:page], :per_page=>10 )
-    @all_users = @user.followers
+    @users = @user.send(action).paginate( :page=>params[:page], :per_page=>10 )
+    @all_users = @user.send(action)
     render :show_follow
   end
   
