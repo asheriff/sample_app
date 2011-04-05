@@ -27,7 +27,9 @@ class User < ActiveRecord::Base
   
   validates :name,
     :presence => true,
-    :length => { :maximum=>50 }
+    :length => { :maximum=>50 },
+    :format => /\A[-_a-z0-9]+\z/i,
+    :uniqueness => { :case_sensitive => false }
   
   validates :email,
     :presence => true,
@@ -39,6 +41,7 @@ class User < ActiveRecord::Base
     :confirmation => true,
     :length => { :within=>6..40 }
   
+  before_validation :strip_space
   before_save :encrypt_password
   
   # Returns the user if +email+ and +password are correct.
@@ -107,5 +110,12 @@ class User < ActiveRecord::Base
     
     def secure_hash(s)
       Digest::SHA2.hexdigest(s)
+    end
+    
+    def strip_space
+      # TODO: refactor into something more generalally useful
+      if name.respond_to? :strip
+        self[:name] = name.strip
+      end
     end
 end

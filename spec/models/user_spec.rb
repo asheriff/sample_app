@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
   before :each do
     @attrs = {
-      :name => "Jon Doe",
+      :name => "JonDoe",
       :email => "jdoe@foo.com",
       :password => "foobar",
       :password_confirmation => "foobar"
@@ -14,9 +14,29 @@ describe User do
     User.create! @attrs
   end
   
+  it "should strip whitespace from a name" do
+    user = User.new
+    user.valid?.should eq false
+    
+    user = User.new( @attrs.merge(:name=>"  Dave  ") )
+    user.valid?.should eq true
+    user.name.should eq "Dave"
+  end
+  
   it "should require a name" do
     user = User.new( @attrs.merge(:name=>"") )
     user.valid?.should eq false
+  end
+  
+  it "should reject names with whitespace" do
+    user = User.new( @attrs.merge(:name=>"Jim Bo") )
+    user.valid?.should eq false
+  end
+  
+  it "should reject duplicate names" do
+    User.create! @attrs
+    user2 = User.new @attrs.merge(:name=>@attrs[:name].upcase, :email=>Factory.next(:email))
+    user2.valid?.should eq false
   end
   
   it "should reject long names" do

@@ -18,7 +18,7 @@ def make_users
   print "creating Users"
   
   admin = User.create!(
-    :name => "Example User",
+    :name => "example",
     :email => "example@user.com",
     :password => "foobar",
     :password_confirmation => "foobar"
@@ -26,7 +26,7 @@ def make_users
   admin.toggle!(:admin)
   
   99.times do |n|
-    name = Faker::Name.name
+    name = "example-#{n}"
     email = "example-#{n}@user.org"
     password = "password"
     

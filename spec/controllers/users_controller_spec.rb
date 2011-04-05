@@ -40,7 +40,7 @@ describe UsersController do
       
       it "should have an element for each user" do
         get "index"
-        @users.each do |user|
+        @users.first(@pagination_count).each do |user|
           response.should have_selector("li",
             :content => user.name
           )
@@ -218,7 +218,7 @@ describe UsersController do
     
     describe "success" do
       before :each do
-        @attrs = { :name=>"New User", :email=>"user@foo.com", :password=>"foobar", :password_confirmation=>"foobar" }
+        @attrs = { :name=>"newuser", :email=>"user@foo.com", :password=>"foobar", :password_confirmation=>"foobar" }
       end
       
       it "should create a user" do
@@ -298,7 +298,7 @@ describe UsersController do
     
     describe "success" do
       before :each do
-        @attrs = { :name=>"New Name", :email=>"new@new.com", :password=>"newpass", :password_confirmation=>"newpass" }
+        @attrs = { :name=>"newname", :email=>"new@new.com", :password=>"newpass", :password_confirmation=>"newpass" }
       end
       
       it "should change teh user's attributes" do

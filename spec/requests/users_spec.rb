@@ -21,7 +21,7 @@ describe "Users" do
       it "should create a new user" do
         lambda {
           visit signup_path
-          fill_in "Name", :with=>"New User"
+          fill_in "Name", :with=>"newuser"
           fill_in "Email", :with=>"foo@bar.com"
           fill_in "Password", :with=>"foobar"
           fill_in "Confirm", :with=>"foobar"
