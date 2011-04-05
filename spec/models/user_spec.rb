@@ -195,6 +195,23 @@ describe User do
     end
   end
   
+  describe "micropost replies" do
+    before :each do
+      @user = Factory(:user)
+      @other_user = Factory(:user)
+    end
+    
+    it "should have replies method" do
+      @user.should respond_to(:replies)
+    end
+    
+    it "should add a reply" do
+      post = @user.microposts.create!( :recipient=>@other_user, :content=>"asdf" )
+      @other_user.replies.should include(post)
+    end
+    
+  end
+  
   describe "relationships" do
     before :each do
       @user = User.create!(@attrs)

@@ -1,19 +1,23 @@
 # == Schema Information
-# Schema version: 20110324212159
+# Schema version: 20110405163857
 #
 # Table name: microposts
 #
-#  id         :integer         not null, primary key
-#  content    :string(255)
-#  user_id    :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  id           :integer         not null, primary key
+#  content      :string(255)
+#  user_id      :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#  recipient_id :integer
 #
 
 class Micropost < ActiveRecord::Base
-  attr_accessible :content
+  attr_accessible :content, :recipient, :recipient_id
+  # TODO: does making recipient and recipient_id exposes a security issue, ie.
+  # could a user update posts to change the recipient?
   
   belongs_to :user
+  belongs_to :recipient, :class_name=>"User"
   
   validates :content, :presence=>true, :length=>{ :maximum=>140 }
   validates :user_id, :presence=>true

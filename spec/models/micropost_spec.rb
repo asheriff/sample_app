@@ -19,9 +19,24 @@ describe Micropost do
       @micropost.should respond_to(:user)
     end
     
+    it "should have a recipient attribute" do
+      @micropost.should respond_to(:recipient)
+    end
+    
     it "should have the correct associated user" do
       @micropost.user_id.should eq @user.id
       @micropost.user.should eq @user
+    end
+  end
+  
+  describe "recipient association" do
+    before :each do
+      @other_user = Factory(:user)
+    end
+    
+    it "should have the correct associated recipient" do
+      post = @user.microposts.create!(@attrs.merge(:recipient=>@other_user))
+      post.recipient.should eq @other_user
     end
   end
   

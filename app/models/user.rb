@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
   
   has_many :microposts, :dependent=>:destroy
+  has_many :replies, :foreign_key=>:recipient_id, :class_name=>"Micropost"
+  
   has_many :relationships, :foreign_key=>:follower_id, :dependent=>:destroy
   has_many :reverse_relationships, :foreign_key=>:followed_id, :class_name=>"Relationship", :dependent=>:destroy
   has_many :following, :through=>:relationships, :source=>:followed
