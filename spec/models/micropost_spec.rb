@@ -30,6 +30,11 @@ describe Micropost do
       Micropost.new(@attrs).should_not be_valid
     end
     
+    it "should stript whitespace from content" do
+      post = @user.microposts.create!(:content=>"   a   ")
+      post.content.should == "a"
+    end
+    
     it "should not allow blank content" do
       @user.microposts.build(:content=>" ").should_not be_valid
     end

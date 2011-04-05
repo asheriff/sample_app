@@ -41,7 +41,8 @@ class User < ActiveRecord::Base
     :confirmation => true,
     :length => { :within=>6..40 }
   
-  before_validation :strip_space
+  strip_attributes! :only => [:name]
+  
   before_save :encrypt_password
   
   # Returns the user if +email+ and +password are correct.
@@ -110,12 +111,5 @@ class User < ActiveRecord::Base
     
     def secure_hash(s)
       Digest::SHA2.hexdigest(s)
-    end
-    
-    def strip_space
-      # TODO: refactor into something more generalally useful
-      if name.respond_to? :strip
-        self[:name] = name.strip
-      end
     end
 end
