@@ -30,8 +30,6 @@ class Micropost < ActiveRecord::Base
     followed_by(user)
   }
   
-  before_validation :parse_user_name_from_content
-  
   private
     
     def self.followed_by(user)
@@ -46,17 +44,5 @@ class Micropost < ActiveRecord::Base
       )
       
       where( sql , params )
-    end
-    
-    def parse_user_name_from_content
-      # TODO: DRY: Use the User model regex for the useranme
-      return unless attribute_present?(:content)
-      
-      _, user_name, content = *self.content.match( /@([-_a-z0-9]+)(?:\s+(.*))?/i )
-      
-      if user_name
-        self.recipient = User.find_by_name(user_name)
-        self.content = content
-      end
     end
 end
