@@ -38,6 +38,12 @@ describe Micropost do
       post = @user.microposts.create!(@attrs.merge(:recipient=>@other_user))
       post.recipient.should eq @other_user
     end
+    
+    it "should automatically set the recipient when content starts with @username" do
+      content = "@#{@other_user.name} reply"
+      post = @user.microposts.create!(:content=>content)
+      post.recipient.should eq @other_user
+    end
   end
   
   describe "validations" do
