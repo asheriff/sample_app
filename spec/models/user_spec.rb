@@ -192,6 +192,21 @@ describe User do
         
         @user.feed.include?(user_2_post).should be_true
       end
+      
+      it "should include posts where the user is the recipient" do
+        user_2 = Factory(:user, :email=>Factory.next(:email))
+        user_2_post = Factory( :micropost, :user=>user_2, :recipient=>@user )
+        @user.feed.include?(user_2_post).should be_true
+      end
+      
+      it "should include posts where followed users are the recipients" do
+        user_2 = Factory(:user, :email=>Factory.next(:email))
+        @user.follow!(user_2)
+        
+        user_3 = Factory(:user, :email=>Factory.next(:email))
+        post = Factory( :micropost, :user=>user_3, :recipient=>user_2 )
+        @user.feed.include?(post).should be_true
+      end
     end
   end
   
