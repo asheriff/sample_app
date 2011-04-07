@@ -28,9 +28,23 @@ class Micropost < ActiveRecord::Base
   
   default_scope :order => "microposts.created_at DESC"
   
-  scope :from_users_followed_by, lambda { |user|
-    followed_by(user)
-  }
+  module Scopes
+    def from_users_followed_by(user)
+      post = Micropost.arel_table
+      relationship = Relationship.arel_table
+      
+      followed_ids = relationship.where( relationship[:follower_id].eq( user.id) ).project( relationship[:followed_id] )
+      
+      where(
+        post[:user_id].
+          eq( user.id ).
+          or( post[:recipient_id].eq( user.id )).
+          or( post[:user_id].in( followed_ids )).
+          or( post[:recipient_id].in( followed_ids ))
+      )
+    end
+  end
+  extend Scopes
   
   # Set the content and recipient attributes from a string.
   #
@@ -73,19 +87,5 @@ class Micropost < ActiveRecord::Base
       if self.recipient == self.user
         errors.add :recipient, "can't be your account"
       end
-    end
-    
-    def self.followed_by(user)
-      params = { :user_id => user.id  }
-      
-      sql = %(
-        user_id IN (
-          SELECT followed_id
-          FROM relationships
-          WHERE follower_id = :user_id
-        ) OR user_id = :user_id
-      )
-      
-      where( sql , params )
     end
 end
