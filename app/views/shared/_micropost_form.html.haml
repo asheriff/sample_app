@@ -2,6 +2,6 @@
   = render 'shared/errors', :obj=>f.object
   %dl.form
     %dt= f.label( "What's up?" )
-    %dd= f.text_area( :content )
+    %dd= f.text_area( :extended_content )
   .actions
     = f.submit( "Post" )

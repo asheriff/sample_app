@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Micropost do
   before :each do
     @user = Factory(:user)
+    @other_user = Factory(:user, :email=>Factory.next(:email))
     @attrs = { :content=>"micropost content" }
   end
   
@@ -30,28 +31,24 @@ describe Micropost do
   end
   
   describe "recipient association" do
-    before :each do
-      @other_user = Factory(:user)
-    end
-    
     it "should have the correct associated recipient" do
       post = @user.microposts.create!(@attrs.merge(:recipient=>@other_user))
       post.recipient.should eq @other_user
     end
     
-    describe "the #content= method" do
+    describe "the #extended_content= method" do
       describe "with valid @username" do
         it "should automatically set the recipient when content starts with @username" do
-          content = "@#{@other_user.name} reply"
-          post = @user.microposts.create!(:content=>content)
+          extended_content = "@#{@other_user.name} reply"
+          post = @user.microposts.create!(:extended_content=>extended_content)
           post.recipient.should eq @other_user
         end
       end
       
       describe "with non-existant @username" do
         before :each do
-          @content = "@nosuchuser reply"
-          @post = @user.microposts.build(:content=>@content)
+          @extended_content = "@nosuchuser reply"
+          @post = @user.microposts.build(:extended_content=>@extended_content)
         end
         
         it "should be invalid" do
@@ -60,27 +57,27 @@ describe Micropost do
         
         it "should have an error message describing the error" do
           @post.valid?
-          @post.errors[:content].to_s.should =~ /The intended recipient @nosuchuser doesn't exists/
+          @post.errors[:content].to_s.should =~ /contains a recipient @nosuchuser that doesn't exists/
         end
         
         it "should still contain the non-existant @username" do
           @post.recipient.should be_nil
-          @post.content.should == @content
+          @post.extended_content.should == @extended_content
         end
         
         it "should set recipient to nil if @username does not exists" do
-          content = "@#{@other_user.name} reply"
-          post = @user.microposts.build(:content=>content)
+          extended_content = "@#{@other_user.name} reply"
+          post = @user.microposts.build(:extended_content=>extended_content)
           post.recipient.should eq @other_user
-          post.content = "@nosuchuser reply"
+          post.extended_content = "@nosuchuser reply"
           post.recipient.should be_nil
         end
       end
       
       describe "with only a valid @username" do
         before :each do
-          @content = "@#{@other_user.name}"
-          @post = @user.microposts.build(:content=>@content)
+          @extended_content = "@#{@other_user.name}"
+          @post = @user.microposts.build(:extended_content=>@extended_content)
         end
         
         it "should be invalid" do
@@ -89,10 +86,10 @@ describe Micropost do
       end
     end
     
-    describe "the #content method" do
+    describe "the #extended_content method" do
       it "should have the recipient username in the content" do
         post = @user.microposts.create!(@attrs.merge(:recipient=>@other_user))
-        post.content.should == "@#{@other_user.name} #{@attrs[:content]}"
+        post.extended_content.should == "@#{@other_user.name} #{@attrs[:content]}"
       end
     end
   end
@@ -113,6 +110,15 @@ describe Micropost do
     
     it "should reject long content" do
       @user.microposts.build(:content=>"a"*141).should_not be_valid
+    end
+    
+    it "should reject own account as recipient" do
+      @user.microposts.build(:content=>"a", :recipient=>@user).should_not be_valid
+    end
+    
+    it "should accept long content with @username" do
+      extended_content = "@" << @other_user.name << "    " << "a"*140
+      @user.microposts.build(:extended_content=>extended_content).should be_valid
     end
   end
   

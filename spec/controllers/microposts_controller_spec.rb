@@ -22,7 +22,7 @@ describe MicropostsController do
     
     describe "failure" do
       before :each do
-        @attrs = { :content=>"" }
+        @attrs = { :extended_content=>"" }
       end
       
       it "should not create a micropost" do
@@ -39,7 +39,7 @@ describe MicropostsController do
     
     describe "success" do
       before :each do
-        @attrs = { :content=>"Lorem ipsum" }
+        @attrs = { :extended_content=>"Lorem ipsum" }
       end
       
       it "should create a micropost" do
@@ -48,14 +48,51 @@ describe MicropostsController do
         }.should change(Micropost, :count).by(1)
       end
       
+      it "should have a flash message" do
+        post 'create', :micropost=>@attrs
+        flash[:success].should =~ /created/i
+      end
+      
       it "should redirect to the home page" do
         post 'create', :micropost=>@attrs
         response.should redirect_to(root_path)
       end
+    end
+  end
+  
+  describe "POST 'create' with recipient" do
+    before :each do
+      @user = test_sign_in(Factory(:user))
+      @other_user = Factory(:user, :email=>Factory.next(:email))
+    end
+    
+    describe "failure" do
+      describe "non-existent @username" do
+        it "should not create a micropost" do
+          lambda {
+            post 'create', :micropost=>{:content=>"@nosuchuser Lorem ipsum"}
+          }.should_not change(Micropost, :count)
+        end
+      end
       
-      it "should have a flash message" do
-        post 'create', :micropost=>@attrs
-        flash[:success].should =~ /created/i
+      describe "no content" do
+        it "should not create a micropost" do
+          lambda {
+            post 'create', :micropost=>{:content=>"@#{@other_user.name}    "}
+          }.should_not change(Micropost, :count)
+        end
+      end
+    end
+    
+    describe "success" do
+      before :each do
+        @extended_content = "@#{@other_user.name} Lorem ipsum"
+      end
+      
+      it "should have a recipient if content starts with a valid @username" do
+        lambda{
+          post 'create', :micropost=>{:extended_content=>@extended_content}
+        }.should change(Micropost, :count).by(1)
       end
     end
   end
