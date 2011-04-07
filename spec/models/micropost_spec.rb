@@ -39,10 +39,61 @@ describe Micropost do
       post.recipient.should eq @other_user
     end
     
-    it "should automatically set the recipient when content starts with @username" do
-      content = "@#{@other_user.name} reply"
-      post = @user.microposts.create!(:content=>content)
-      post.recipient.should eq @other_user
+    describe "the #content= method" do
+      describe "with valid @username" do
+        it "should automatically set the recipient when content starts with @username" do
+          content = "@#{@other_user.name} reply"
+          post = @user.microposts.create!(:content=>content)
+          post.recipient.should eq @other_user
+        end
+      end
+      
+      describe "with non-existant @username" do
+        before :each do
+          @content = "@nosuchuser reply"
+          @post = @user.microposts.build(:content=>@content)
+        end
+        
+        it "should be invalid" do
+          @post.should_not be_valid
+        end
+        
+        it "should have an error message describing the error" do
+          @post.valid?
+          @post.errors[:content].to_s.should =~ /The intended recipient @nosuchuser doesn't exists/
+        end
+        
+        it "should still contain the non-existant @username" do
+          @post.recipient.should be_nil
+          @post.content.should == @content
+        end
+        
+        it "should set recipient to nil if @username does not exists" do
+          content = "@#{@other_user.name} reply"
+          post = @user.microposts.build(:content=>content)
+          post.recipient.should eq @other_user
+          post.content = "@nosuchuser reply"
+          post.recipient.should be_nil
+        end
+      end
+      
+      describe "with only a valid @username" do
+        before :each do
+          @content = "@#{@other_user.name}"
+          @post = @user.microposts.build(:content=>@content)
+        end
+        
+        it "should be invalid" do
+          @post.should_not be_valid
+        end
+      end
+    end
+    
+    describe "the #content method" do
+      it "should have the recipient username in the content" do
+        post = @user.microposts.create!(@attrs.merge(:recipient=>@other_user))
+        post.content.should == "@#{@other_user.name} #{@attrs[:content]}"
+      end
     end
   end
   
